@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css">
+    <title>Main Page</title>
+</head>
+<body>
+    <p>Добавление класса</p>
+    <form action="http://localhost:8968/api/Class" , method="POST">
+        <input type="text" , name="Name">
+        <input type="text" , name="Amount">
+        <button type="submit">Создать класс</button>
+    </form>
+    <p>Добавление учителя</p>
+    <form action="http://localhost:8968/api/Teacher" , method="POST">
+        <input type="text" , name="Name">
+        <input type="text" , name="Specialization">
+        <button type="submit">Создать учителя!</button>
+    </form>
+    <p>Добавление Урока</p>
+    <form action="http://localhost:8968/api/Lesson" , method="POST">
+        <input type="text" , name="Name">
+        <input type="text" , name="Number">
+        <input type="text", name="Day">
+        <input type="text" name="nameClass">
+        <input type="text" name="nameTeacher">
+        <button type="submit">Создать урок!</button>
+    </form>
+</body>
+</html>
