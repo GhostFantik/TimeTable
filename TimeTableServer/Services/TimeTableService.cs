@@ -4,15 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using TimeTableServer.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace TimeTableServer.Services
 {
     public class TimeTableService : ITimeTableService
     {
         TimeTableContext _db;
-        public TimeTableService(TimeTableContext db)
+        ILogger<TimeTableService> _logger;
+        public TimeTableService(TimeTableContext db, ILogger<TimeTableService> logger)
         {
             _db = db;
+            _logger = logger;
         }
         public async Task AddClassAsync(Class item)
         {
@@ -49,7 +52,20 @@ namespace TimeTableServer.Services
 
         public async Task<Class> GetClassAsync(string name)
         {
-            return await _db.Classes.Where(p => p.Name == name).FirstOrDefaultAsync();
+            try
+            {
+                Console.WriteLine("GetClassAsync!  " + name);
+                IQueryable<Class> buff = _db.Classes.Where(p => p.Name == name);
+                Console.WriteLine("Where выполнен!");
+                Class buffer = await buff.FirstOrDefaultAsync();
+                Console.WriteLine("Конец выполнения GetClassAsync! " + buffer.Name);
+                return buffer;
+            }
+            catch(Exception e)
+            {
+                _logger.LogError("Ошибка: " + e.Message);
+                return null;
+            }
         }
 
         public async Task<Teacher> GetTeacherAsync(string name)

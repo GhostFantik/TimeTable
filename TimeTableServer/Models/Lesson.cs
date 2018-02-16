@@ -6,8 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TimeTableServer.Models
 {
-    public class Lesson
+    public class Lesson : IComparable<Lesson>
     {
+        //TODO: кабинет реализовать
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
@@ -21,5 +22,15 @@ namespace TimeTableServer.Models
 
         public int TeacherId { get; set; }
         public Teacher Teacher { get; set; }
+
+        public int CompareTo(Lesson other)
+        {
+            if (Number > other.Number)
+                return 1;
+            else if (Number == other.Number)
+                return 0;
+            else
+                return -1;
+        }
     }
 }

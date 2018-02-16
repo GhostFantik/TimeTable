@@ -14,7 +14,9 @@ using TimeTableServer.Services;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
-
+using TimeTableServer.Services.VK;
+using System.Threading;
+using NLog.Web;
 namespace TimeTableServer
 {
     public class Startup
@@ -37,19 +39,26 @@ namespace TimeTableServer
             });
             // Adding the service TimeTableService
             services.AddTransient<ITimeTableService, TimeTableService>();
+            services.AddTransient<IVkBotService, VkBotService>();
+            services.AddTransient<Utils.UtilsConvert>();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+            ILogger<Startup> logger, IVkBotService vkBot)
         {
+            logger.LogInformation("StartUp!!!!!!");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            //logger.LogError("Это норм??");
+            //Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();
+            vkBot.StartAsync();
         }
     }
 }
