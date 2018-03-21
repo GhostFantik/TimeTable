@@ -14,7 +14,6 @@ using TimeTableServer.Services;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
-using TimeTableServer.Services.VK;
 using System.Threading;
 using NLog.Web;
 namespace TimeTableServer
