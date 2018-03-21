@@ -39,14 +39,14 @@ namespace TimeTableServer
             });
             // Adding the service TimeTableService
             services.AddTransient<ITimeTableService, TimeTableService>();
-            services.AddTransient<IVkBotService, VkBotService>();
-            services.AddTransient<Utils.UtilsConvert>();
+            //services.AddTransient<IVkBotService, VkBotService>();
+            //services.AddTransient<Utils.UtilsConvert>();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
-            ILogger<Startup> logger, IVkBotService vkBot)
+            ILogger<Startup> logger)
         {
             logger.LogInformation("StartUp!!!!!!");
             if (env.IsDevelopment())
@@ -58,7 +58,6 @@ namespace TimeTableServer
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();
-            vkBot.StartAsync();
         }
     }
 }

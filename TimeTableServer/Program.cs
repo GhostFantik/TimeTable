@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
 using NLog;
+using System.Net;
 
 namespace TimeTableServer
 {
@@ -26,6 +27,10 @@ namespace TimeTableServer
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseKestrel(options =>
+                {
+                    options.Listen(IPAddress.Loopback, 5000);
+                })
                 .UseNLog()
                 .Build();
     }

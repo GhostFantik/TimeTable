@@ -52,20 +52,10 @@ namespace TimeTableServer.Services
 
         public async Task<Class> GetClassAsync(string name)
         {
-            try
-            {
-                Console.WriteLine("GetClassAsync!  " + name);
-                IQueryable<Class> buff = _db.Classes.Where(p => p.Name == name);
-                Console.WriteLine("Where выполнен!");
-                Class buffer = await buff.FirstOrDefaultAsync();
-                Console.WriteLine("Конец выполнения GetClassAsync! " + buffer.Name);
-                return buffer;
-            }
-            catch(Exception e)
-            {
-                _logger.LogError("Ошибка: " + e.Message);
-                return null;
-            }
+            Class clas = await _db.Classes.Where(p => p.Name == name)
+                .Include(p => p.Lessons).FirstOrDefaultAsync();
+            Console.WriteLine("КОЛИЧЕСТВО УРОКОВ: " + clas.Lessons.Count);
+            return clas;
         }
 
         public async Task<Teacher> GetTeacherAsync(string name)
