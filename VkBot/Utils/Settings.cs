@@ -18,6 +18,9 @@ namespace VkBot.Utils
         public string VkToken;
         [JsonProperty("Asp.net server")]
         public string Server;
+        [JsonProperty("JsonSchemaFailed(2,3)")]
+        public string JsonSchemaFailed;
+
         public void Read()
         {
             StreamReader streamReader = new StreamReader("settings.json");

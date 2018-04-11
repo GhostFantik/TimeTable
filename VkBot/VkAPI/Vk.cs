@@ -47,6 +47,7 @@ namespace VkBot.VkAPI
             Console.WriteLine($"составление запроса: {key} {server} {ts}");
             string url = $"{server}?act=a_check&key={key}&ts={ts}&wait=25";
             WebRequest request = WebRequest.Create(url);
+            request.Timeout = 26000;
             WebResponse response = await request.GetResponseAsync();
             StreamReader streamReader = new StreamReader(response.GetResponseStream());
             string answer = await streamReader.ReadToEndAsync();
