@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeTableServer.Services;
 using TimeTableServer.Models;
+using Microsoft.Extensions.Logging;
 
 namespace TimeTableServer.Controllers
 {
@@ -14,19 +15,30 @@ namespace TimeTableServer.Controllers
     public class ClassController : Controller
     {
         ITimeTableService _timetable;
-        public ClassController(ITimeTableService timetable)
+        ILogger<ClassController> _logger;
+        public ClassController(ITimeTableService timetable, ILogger<ClassController> logger)
         {
             _timetable = timetable;
+            _logger = logger;
         }
         [HttpPost]
-        public async Task<IActionResult> Post(Class item)
+        public async Task<IActionResult> Post([FromBody]Class item)
         {
-            if (ModelState.IsValid)
+            try
             {
-                await _timetable.AddClassAsync(item);
-                return Ok();
+                //_logger.LogError("Post запрос: " + item.Name + " Кол-во " + item.Amount);
+                if (ModelState.IsValid)
+                {
+                    await _timetable.AddClassAsync(item);
+                    return Ok();
+                }
+                return BadRequest("Ошибка валидации!");
             }
-            return BadRequest("Ошибка валидации!");
+            catch(Exception e)
+            {
+                Console.WriteLine("Ошибка: " + e);
+                return NotFound("Ошибка выполнения!");
+            }
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()

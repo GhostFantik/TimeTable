@@ -32,10 +32,12 @@ const router = new VueRouter({
         {
           path: 'class',
           component: classAdmin,
+          name: 'classAdmin',
         },
         {
           path: 'timetable',
           component: timeTableAdmin,
+          name: 'timeTableAdmin',
         },
       ],
     },

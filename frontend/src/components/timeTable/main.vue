@@ -64,13 +64,11 @@ export default {
           .then(response => {
             if(response.status == 200){
               let lessons = response.data.lessons;
-              let currentLessons = [];
               lessons.forEach(item => {
                   if(item.day == this.day){
                     this.valuesLessons.push(item);
                   }
               });
-              console.log(this.valuesLessons.lenght)
               if(this.valuesLessons.lenght <= 0){
                 alert("Уроков нет!");
               }
@@ -94,5 +92,6 @@ export default {
 .main {
   float: left;
 }
+
 </style>
 

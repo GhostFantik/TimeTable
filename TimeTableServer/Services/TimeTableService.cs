@@ -69,9 +69,10 @@ namespace TimeTableServer.Services
             await _db.SaveChangesAsync();
         }
 
-        public async Task RemoveLessonAsync(Lesson item)
+        public async Task RemoveLessonAsync(int id)
         {
-            _db.Lessons.Remove(item);
+            Lesson buffer = await _db.Lessons.Where(p => p.Id == id).FirstOrDefaultAsync();
+            _db.Lessons.Remove(buffer);
             await _db.SaveChangesAsync();
         }
 

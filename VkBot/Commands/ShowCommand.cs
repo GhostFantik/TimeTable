@@ -53,7 +53,7 @@ namespace VkBot.Commands
                    && commandString[2] == "расписание"
                    && commandString[4] == "на")
                 {
-                    if (Regex.IsMatch(commandString[3], "(\\d[а-б])"))
+                    if (Regex.IsMatch(commandString[3], "(\\d[а-я])"))
                     {
                         if (commandString[5].Length <= 11)
                         {

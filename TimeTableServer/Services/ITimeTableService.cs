@@ -18,7 +18,7 @@ namespace TimeTableServer.Services
         Task<Teacher> GetTeacherAsync(string name);
 
         Task AddLessonAsync(Lesson item);
-        Task RemoveLessonAsync(Lesson item);
+        Task RemoveLessonAsync(int item);
         Task<IEnumerable<Lesson>> GetAllLessonAsync(DayOfWeek day);
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeTableServer.Services;
 using TimeTableServer.Models;
+using TimeTableServer.Models.ViewModels;
 
 namespace TimeTableServer.Controllers
 {
@@ -24,17 +25,18 @@ namespace TimeTableServer.Controllers
             return Json(await _timeTable.GetAllLessonAsync(day));
         }
         [HttpPost]
-        public async Task<IActionResult> Post(Lesson lesson, string nameClass, string nameTeacher)
+        public async Task<IActionResult> Post([FromBody] LessonView item)
         {
+            //Console.WriteLine("Запрос добавления урока: " + item.lesson.Name + " п " + item.nameClass);
             if (ModelState.IsValid)
             {
-                Class bufferClass = await _timeTable.GetClassAsync(nameClass);
-                Teacher bufferTeacher = await _timeTable.GetTeacherAsync(nameTeacher);
+                Class bufferClass = await _timeTable.GetClassAsync(item.nameClass);
+                Teacher bufferTeacher = await _timeTable.GetTeacherAsync(item.nameTeacher);
                 Lesson buffer = new Lesson
                 {
-                    Name = lesson.Name,
-                    Day = lesson.Day,
-                    Number = lesson.Number,
+                    Name = item.lesson.Name,
+                    Day = item.lesson.Day,
+                    Number = item.lesson.Number,
                     Class = bufferClass,
                     Teacher = bufferTeacher
                 };
@@ -43,11 +45,11 @@ namespace TimeTableServer.Controllers
             }
             return BadRequest("Ошибка валидации!");
         }
-        [HttpDelete]
-        public async Task<IActionResult> Delete(Lesson lesson)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            await _timeTable.RemoveLessonAsync(lesson);
-            return Json(lesson);
+            await _timeTable.RemoveLessonAsync(id);
+            return Ok();
         }
     }
 }
