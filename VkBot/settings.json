@@ -1,5 +1,5 @@
 ﻿{
-  "VkToken": "01688ca6b19bf88bacd776bce9734037c5e4c9ad5056cf6bd5c309ab1c314d9f5903e43c69a25ca44c71b",
+  "VkToken": "",
   "Asp.net server": "http://localhost:5000/",
 
   "JsonSchemaFailed(2,3)": "{'type' : 'object', 'properties' : {'failed' : {'type' : 'string'} }}",
