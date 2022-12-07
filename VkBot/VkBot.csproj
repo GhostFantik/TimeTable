@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.9" />
     <PackageReference Include="NLog" Version="4.5.0-rc07" />
     <PackageReference Include="VkNet" Version="1.31.0" />
